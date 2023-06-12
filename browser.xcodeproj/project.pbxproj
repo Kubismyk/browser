@@ -16,6 +16,7 @@
 		588C7CF12A35F8CA00EAB929 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 588C7CEF2A35F8CA00EAB929 /* LaunchScreen.storyboard */; };
 		588C7CFB2A35FB8900EAB929 /* ViewControllerSecond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C7CFA2A35FB8900EAB929 /* ViewControllerSecond.swift */; };
 		58F92D312A36135A00ADB12E /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F92D302A36135A00ADB12E /* TabBar.swift */; };
+		58F92D362A37816800ADB12E /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 58F92D352A37816800ADB12E /* JGProgressHUD */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58F92D362A37816800ADB12E /* JGProgressHUD in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +94,9 @@
 			dependencies = (
 			);
 			name = browser;
+			packageProductDependencies = (
+				58F92D352A37816800ADB12E /* JGProgressHUD */,
+			);
 			productName = browser;
 			productReference = 588C7CDE2A35F8C800EAB929 /* browser.app */;
 			productType = "com.apple.product-type.application";
@@ -121,6 +126,7 @@
 			);
 			mainGroup = 588C7CD52A35F8C800EAB929;
 			packageReferences = (
+				58F92D342A37816800ADB12E /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
 			);
 			productRefGroup = 588C7CDF2A35F8C800EAB929 /* Products */;
 			projectDirPath = "";
@@ -372,6 +378,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		58F92D342A37816800ADB12E /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		58F92D352A37816800ADB12E /* JGProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 58F92D342A37816800ADB12E /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
+			productName = JGProgressHUD;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		588C7CEA2A35F8C800EAB929 /* browser.xcdatamodeld */ = {

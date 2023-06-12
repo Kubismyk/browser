@@ -53,7 +53,9 @@ class TabBar: UITabBarController, UITabBarControllerDelegate,UITextFieldDelegate
         
         // Add the text field as a subview of the tab bar controller's view
         textField.borderStyle = .roundedRect
-        textField.placeholder = "Search"
+        textField.textFieldStyle(CornerRadius: 8, BorderWidth: 1, BorderColor: .gray, Placeholder: "Search the internet", TextColor: .black)
+        textField.addShadow(ShadowRadius: 10, ShadowColor: .black, ShadowOpacity: 1, ShadowX: 2, ShadowY: 2)
+        textField.placeholder = "Search the internet"
         textField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(textField)
            
@@ -70,6 +72,11 @@ class TabBar: UITabBarController, UITabBarControllerDelegate,UITextFieldDelegate
         // Register for keyboard notifications
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
     }
     
     @objc private func keyboardWillShow(notification: Notification) {
@@ -90,7 +97,19 @@ class TabBar: UITabBarController, UITabBarControllerDelegate,UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let text = textField.text {
-            tabBarDelegate?.textFieldDidReturn(withText: text)
+            let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            if let _ = URL(string: trimmedText) {
+                // Valid URL
+                tabBarDelegate?.textFieldDidReturn(withText: trimmedText)
+            } else {
+                // Not a valid URL
+                let modifiedText = trimmedText.replacingOccurrences(of: " ", with: "+")
+                let searchURL = "https://www.google.com/search?q=\(modifiedText)"
+                
+                tabBarDelegate?.textFieldDidReturn(withText: searchURL)
+                print("\(modifiedText)")
+            }
         }
         return true
     }
@@ -130,4 +149,28 @@ class TabBar: UITabBarController, UITabBarControllerDelegate,UITextFieldDelegate
         tabBarDelegate?.goForward()
         // Add your custom code here
     }
+}
+
+
+extension UITextField {
+    func textFieldStyle(CornerRadius:Int,BorderWidth:CGFloat,BorderColor:UIColor,Placeholder:String,TextColor:UIColor){
+        self.layer.cornerRadius = CGFloat(CornerRadius)
+        self.layer.borderWidth = BorderWidth
+        self.layer.borderColor = BorderColor.cgColor
+        self.attributedPlaceholder = NSAttributedString(
+            string: Placeholder,
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
+        )
+        //self.font =  UIFont.init(name: (FontFamily), size: 20.0)
+        self.textColor = TextColor
+        
+    }
+    func addShadow(ShadowRadius:CGFloat,ShadowColor:UIColor,ShadowOpacity:Float,ShadowX:Int,ShadowY:Int) {
+        self.backgroundColor = .white
+        self.layer.masksToBounds = true
+        self.layer.shadowRadius = ShadowRadius
+        self.layer.shadowColor = ShadowColor.cgColor
+        self.layer.shadowOffset = CGSize(width: ShadowX, height: ShadowY)
+        self.layer.shadowOpacity = ShadowOpacity
+        }
 }
